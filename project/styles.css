@@ -260,6 +260,19 @@ textarea.field__control {
   line-height: 1.45;
 }
 
+.field--checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.field__checkbox {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
 .card-form__actions,
 .saved-card__actions {
   display: flex;
