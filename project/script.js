@@ -18,6 +18,8 @@ const cardYear = document.querySelector('[data-field="year"]');
 const cardFinished = document.querySelector('[data-field="finished"]');
 const cardNote = document.querySelector('[data-field="note"]');
 
+const noteError = document.querySelector('[data-error="note"]');
+
 function showState(name, text) {
   panels.forEach((panel) => {
     panel.hidden = panel.dataset.statePanel !== name;
@@ -41,6 +43,10 @@ function buildCard(data) {
     finished: data.get("finished") === "on",
     note: data.get("note")
   };
+}
+
+function isNoteMissing(card) {
+  return card.finished && card.note.trim() === "";
 }
 
 function fillForm(card) {
@@ -72,6 +78,7 @@ function showSaved() {
 
 function openEditor() {
   form.reset();
+  noteError.hidden = true;
   const draft = readCard(sessionStorage, DRAFT_KEY);
   const card = readCard(localStorage, CARD_KEY);
   if (draft !== null) {
@@ -91,6 +98,10 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   const data = new FormData(form);
   const card = buildCard(data);
+  if (isNoteMissing(card)) {
+    noteError.hidden = false;
+    return;
+  }
   localStorage.setItem(CARD_KEY, JSON.stringify(card));
   sessionStorage.removeItem(DRAFT_KEY);
   showCard(card);
@@ -98,7 +109,11 @@ form.addEventListener("submit", (event) => {
 
 form.addEventListener("input", () => {
   const data = new FormData(form);
-  sessionStorage.setItem(DRAFT_KEY, JSON.stringify(buildCard(data)));
+  const card = buildCard(data);
+  sessionStorage.setItem(DRAFT_KEY, JSON.stringify(card));
+  if (!isNoteMissing(card)) {
+    noteError.hidden = true;
+  }
 });
 
 createButton.addEventListener("click", openEditor);
