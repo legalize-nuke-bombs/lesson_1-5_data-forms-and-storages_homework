@@ -260,6 +260,25 @@ textarea.field__control {
   line-height: 1.45;
 }
 
+.field__error {
+  color: var(--danger);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.field--checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.field__checkbox {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
 .card-form__actions,
 .saved-card__actions {
   display: flex;
@@ -312,6 +331,20 @@ textarea.field__control {
 .button--danger:hover {
   background: var(--danger-dark);
   border-color: var(--danger-dark);
+}
+
+.saved-card__confirm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.saved-card__question {
+  width: 100%;
+  margin: 0;
+  color: var(--danger);
+  font-weight: 750;
 }
 
 .saved-card__details {
