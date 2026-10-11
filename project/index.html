@@ -28,8 +28,8 @@
         <p class="intro__eyebrow">Формы и хранилища</p>
         <h1 class="intro__title" id="page-title">Сохраненная карточка</h1>
         <p class="intro__lead">
-          Выберите тему, настройте форму и самостоятельно свяжите ввод,
-          отображение и хранение данных.
+          Заполните форму об игре: карточка сохранится в браузере и откроется
+          после перезагрузки страницы.
         </p>
       </section>
 
@@ -37,7 +37,7 @@
         <header class="workspace__header">
           <div>
             <p class="workspace__kicker">Рабочая область</p>
-            <h2 class="workspace__title" id="workspace-title">Ваша тема</h2>
+            <h2 class="workspace__title" id="workspace-title">Игра</h2>
           </div>
 
           <p class="workspace__status" aria-live="polite">Данные еще не проверены</p>
@@ -49,8 +49,8 @@
           <div class="app-state__content">
             <h3 class="app-state__title">Карточка пока не создана</h3>
             <p class="app-state__text">
-              Начните с формы. После сохранения это состояние должно смениться
-              просмотром карточки.
+              Нажмите кнопку и заполните форму. После сохранения здесь появится
+              карточка игры.
             </p>
             <button class="button button--primary" type="button" data-action="create">
               Создать карточку
@@ -68,10 +68,9 @@
                 <p class="card-form__kicker">Редактирование</p>
                 <h3 class="card-form__title">Данные карточки</h3>
               </div>
-              <p class="card-form__note">Добавьте еще минимум три осмысленных поля</p>
+              <p class="card-form__note">Название, жанр и год обязательны</p>
             </header>
 
-            <!-- Это один пример связки label, id и name. Остальные поля создайте сами. -->
             <div class="field">
               <label class="field__label" for="card-title">Название</label>
               <input
@@ -80,13 +79,60 @@
                 name="title"
                 type="text"
                 minlength="3"
-                placeholder="Например, Городской маршрут"
+                placeholder="Например, Dota 2"
                 required
               />
               <span class="field__hint">Минимум 3 символа</span>
             </div>
 
-            <!-- Добавьте поля, которые описывают именно вашу тему. -->
+            <div class="field">
+              <label class="field__label" for="card-genre">Жанр</label>
+              <select class="field__control" id="card-genre" name="genre" required>
+                <option value="">Выберите жанр</option>
+                <option>Шутер</option>
+                <option>RPG</option>
+                <option>MOBA</option>
+                <option>Стратегия</option>
+                <option>Песочница</option>
+                <option>Другое</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="card-year">Год выхода</label>
+              <input
+                class="field__control"
+                id="card-year"
+                name="year"
+                type="number"
+                min="1970"
+                max="2026"
+                required
+              />
+              <span class="field__hint">От 1970 до 2026</span>
+            </div>
+
+            <div class="field field--checkbox">
+              <input
+                class="field__checkbox"
+                id="card-finished"
+                name="finished"
+                type="checkbox"
+              />
+              <label class="field__label" for="card-finished">Пройдена до конца</label>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="card-note">Заметка</label>
+              <textarea
+                class="field__control"
+                id="card-note"
+                name="note"
+                maxlength="300"
+                placeholder="Чем запомнилась"
+              ></textarea>
+              <span class="field__hint">Необязательно, до 300 символов</span>
+            </div>
 
             <div class="card-form__actions">
               <button class="button button--primary" type="submit">
@@ -105,14 +151,25 @@
 
           <article class="saved-card">
             <p class="saved-card__label">Сохраненная карточка</p>
-            <h3 class="saved-card__title">Название появится здесь</h3>
+            <h3 class="saved-card__title" data-field="title"></h3>
 
             <dl class="saved-card__details">
               <div class="saved-card__row">
-                <dt>Свойство</dt>
-                <dd>Значение</dd>
+                <dt>Жанр</dt>
+                <dd data-field="genre"></dd>
               </div>
-              <!-- Добавьте строки или другую разметку для всех полей формы. -->
+              <div class="saved-card__row">
+                <dt>Год выхода</dt>
+                <dd data-field="year"></dd>
+              </div>
+              <div class="saved-card__row">
+                <dt>Пройдена</dt>
+                <dd data-field="finished"></dd>
+              </div>
+              <div class="saved-card__row">
+                <dt>Заметка</dt>
+                <dd data-field="note"></dd>
+              </div>
             </dl>
 
             <div class="saved-card__actions">
