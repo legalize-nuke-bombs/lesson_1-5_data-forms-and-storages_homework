@@ -11,6 +11,11 @@ const createButton = document.querySelector('[data-action="create"]');
 const cancelButton = document.querySelector('[data-action="cancel"]');
 const editButton = document.querySelector('[data-action="edit"]');
 const deleteButton = document.querySelector('[data-action="delete"]');
+const confirmDeleteButton = document.querySelector('[data-action="confirm-delete"]');
+const keepButton = document.querySelector('[data-action="keep"]');
+
+const cardActions = document.querySelector(".saved-card__actions");
+const deleteConfirm = document.querySelector(".saved-card__confirm");
 
 const cardTitle = document.querySelector('[data-field="title"]');
 const cardGenre = document.querySelector('[data-field="genre"]');
@@ -64,6 +69,11 @@ function showCard(card) {
   cardFinished.textContent = card.finished ? "Да" : "Нет";
   cardNote.textContent = card.note || "—";
   showState("viewer", "Карточка сохранена");
+}
+
+function askDelete(asking) {
+  cardActions.hidden = asking;
+  deleteConfirm.hidden = !asking;
 }
 
 function showSaved() {
@@ -125,8 +135,17 @@ cancelButton.addEventListener("click", () => {
 });
 
 deleteButton.addEventListener("click", () => {
+  askDelete(true);
+});
+
+keepButton.addEventListener("click", () => {
+  askDelete(false);
+});
+
+confirmDeleteButton.addEventListener("click", () => {
   localStorage.removeItem(CARD_KEY);
   sessionStorage.removeItem(DRAFT_KEY);
+  askDelete(false);
   showState("empty", "Карточка удалена");
 });
 
